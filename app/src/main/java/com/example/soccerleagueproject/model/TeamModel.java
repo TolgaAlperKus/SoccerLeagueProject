@@ -1,8 +1,8 @@
-package com.example.soccerleagueproject;
+package com.example.soccerleagueproject.model;
 
 import com.google.gson.annotations.SerializedName;
 
 public class TeamModel {
     @SerializedName("name")
-    String teamName;
+    public String teamName;
 }
