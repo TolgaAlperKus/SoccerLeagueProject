@@ -10,7 +10,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //https://raw.githubusercontent.com/TolgaAlperKus/SoccerLeagueProject/main/superlig.json
+        //https://raw.githubusercontent.com/openfootball/football.json/master/2020-21/tr.1.clubs.json TR SuperLig
+        //https://raw.githubusercontent.com/openfootball/football.json/master/2020-21/en.1.clubs.json En PremierLeague
 
     }
 }
