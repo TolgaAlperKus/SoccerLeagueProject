@@ -6,6 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".view.MainActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/activity_main_draw_fixtures_floating_button"
+        android:layout_width="75dp"
+        android:layout_height="76dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:contentDescription="@string/activity_main_draw_fixtures_floating_button_desc_string"
+        android:focusable="true"
+        android:foreground="@drawable/draw_fixture_foreground"
+        android:foregroundGravity="center_vertical|center"
+        android:onClick="drawFixtureOnClick"
+        android:visibility="visible"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <ListView
         android:id="@+id/activity_main_listview"
         android:layout_width="0dp"
@@ -16,6 +33,10 @@
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+    </ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,8 +3,10 @@ package com.example.soccerleagueproject.view;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.soccerleagueproject.R;
 import com.example.soccerleagueproject.model.TeamModel;
@@ -65,8 +67,52 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<TeamModel>> call, Throwable t) {
+
                 t.printStackTrace();
             }
         });
+    }
+    public void drawFixtureOnClick (View view){
+        int teamSize = teamModels.size();
+        // Kaç round sonrası lig tamamlanacak
+        int roundCount=(teamSize-1)*2;
+        // Bir round'da ne kadar maç oynanır
+        int matchCountPerRound=teamSize/2;
+
+        for (int i = 0; i < roundCount; i++) {
+
+            System.out.println((i+1)+".nci Hafta:");
+
+            for(int j=0;j<matchCountPerRound;j++){
+
+                int firstIndex=j;
+                int secondIndex=(teamSize-1)-j;
+
+                System.out.println(teamModels.get(firstIndex)
+                        +"-"+teamModels.get(secondIndex));
+
+            }
+
+            // İlk eleman sabit olacak şekilde elamanları kaydırıyoruz
+            ArrayList<TeamModel> newList=new ArrayList<TeamModel>();
+
+            // İlk eleman sabit
+            newList.add(teamModels.get(0));
+
+            // Son eleman ikinci eleman yapıyoruz.
+            newList.add(teamModels.get(teamModels.size()-1));
+
+            for(int k=1;k<teamModels.size()-1;k++){
+                newList.add(teamModels.get(k));
+            }
+
+            // Keydırılan liste yeni liste oluyor.
+            teamModels=newList;
+
+        }
+
+        System.out.println("Toplam Hafta Sayısı : "+roundCount);
+        System.out.println("Bir Haftadaki Maç Sayısı:  "+matchCountPerRound);
+
     }
 }
