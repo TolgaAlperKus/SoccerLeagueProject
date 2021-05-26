@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SoccerLeagueProject</string>
+    <string name="row_layout_name_textview_text">Team Name</string>
 </resources>
