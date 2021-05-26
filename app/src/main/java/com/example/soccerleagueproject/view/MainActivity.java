@@ -3,6 +3,8 @@ package com.example.soccerleagueproject.view;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.example.soccerleagueproject.R;
 import com.example.soccerleagueproject.model.TeamModel;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<TeamModel> teamModels;
     private String BASE_URL = "https://raw.githubusercontent.com/";
     Retrofit retrofit;
+    ListView teamNamesListView;
+    ArrayAdapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         loadData();
+        teamNamesListView = findViewById(R.id.activity_main_listview);
 
 
     }
@@ -49,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     List<TeamModel> responseTeamNameList = response.body();
                     teamModels = new ArrayList<>(responseTeamNameList);
+                    arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1,teamModels);
+                    teamNamesListView.setAdapter(arrayAdapter);
 
                     for (TeamModel teamModel : teamModels){
                         System.out.println(teamModel.teamName);

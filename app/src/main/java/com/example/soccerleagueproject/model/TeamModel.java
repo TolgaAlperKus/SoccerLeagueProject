@@ -5,4 +5,9 @@ import com.google.gson.annotations.SerializedName;
 public class TeamModel {
     @SerializedName("name")
     public String teamName;
+
+    @Override
+    public String toString() {
+        return teamName;
+    }
 }
