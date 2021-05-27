@@ -2,13 +2,16 @@ package com.example.soccerleagueproject.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.soccerleagueproject.R;
+import com.example.soccerleagueproject.adapter.FixtureFragmentCollectionAdapter;
+import com.example.soccerleagueproject.model.FixtureModel;
+import com.example.soccerleagueproject.model.MatchModel;
 import com.example.soccerleagueproject.model.TeamModel;
 import com.example.soccerleagueproject.service.SoccerApi;
 import com.google.gson.Gson;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Retrofit retrofit;
     ListView teamNamesListView;
     ArrayAdapter arrayAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,20 +82,24 @@ public class MainActivity extends AppCompatActivity {
         int roundCount=(teamSize-1)*2;
         // Bir round'da ne kadar maç oynanır
         int matchCountPerRound=teamSize/2;
+        ArrayList<FixtureModel> fixtureModelArrayList = new ArrayList<>();
 
         for (int i = 0; i < roundCount; i++) {
 
             System.out.println((i+1)+".nci Hafta:");
+            ArrayList<MatchModel> matchModels = new ArrayList<MatchModel>();
 
             for(int j=0;j<matchCountPerRound;j++){
 
                 int firstIndex=j;
                 int secondIndex=(teamSize-1)-j;
 
-                System.out.println(teamModels.get(firstIndex)
-                        +"-"+teamModels.get(secondIndex));
-
+                //System.out.println(teamModels.get(firstIndex) +"-"+teamModels.get(secondIndex));
+                MatchModel match = new MatchModel(teamModels.get(firstIndex) +"-"+teamModels.get(secondIndex));
+                matchModels.add(match);
             }
+            FixtureModel fixtureModel = new FixtureModel(matchModels);
+            fixtureModelArrayList.add(fixtureModel);
 
             // İlk eleman sabit olacak şekilde elamanları kaydırıyoruz
             ArrayList<TeamModel> newList=new ArrayList<TeamModel>();
@@ -113,6 +121,9 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println("Toplam Hafta Sayısı : "+roundCount);
         System.out.println("Bir Haftadaki Maç Sayısı:  "+matchCountPerRound);
+        Intent intent = new Intent(MainActivity.this,FixturesActivity.class);
+        startActivity(intent);
+
 
     }
 }
