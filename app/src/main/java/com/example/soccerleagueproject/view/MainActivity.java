@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fixtureAppDatabase = Room.databaseBuilder(getApplicationContext(),FixtureAppDatabase.class,"matchesdb").allowMainThreadQueries().build();
+        fixtureAppDatabase = Room.inMemoryDatabaseBuilder(getApplicationContext(),FixtureAppDatabase.class).allowMainThreadQueries().build();
+
         Gson gson = new GsonBuilder().setLenient().create();
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     List<TeamModel> responseTeamNameList = response.body();
                     teamModels = new ArrayList<>(responseTeamNameList);
-                    arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1,teamModels);
+                    arrayAdapter = new ArrayAdapter(MainActivity.this, R.layout.custom_layout,teamModels);
                     teamNamesListView.setAdapter(arrayAdapter);
 
                     for (TeamModel teamModel : teamModels){

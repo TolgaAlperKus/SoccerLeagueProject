@@ -18,12 +18,13 @@ public interface FixtureDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public Completable addMatch(final MatchModel matchModel);
 
-    @Query("Select * from matches Where week = :weekNum Limit(Select Count(Distinct home)/2 from matches) ")
-    public List<MatchModel> getWeek (int weekNum);
+    @Query("Select * from matches Where week = :weekNum Limit(:matchNum) ")
+    public List<MatchModel> getWeek (int weekNum, int matchNum);
+
+    @Query("Select Count (Distinct home)from matches")
+    public int teamCount();
 
     @Query("Select Max(week) from matches")
     public int getMaxWeek();
 
-    @Query("DELETE FROM matches")
-    public Completable deleteAll();
 }

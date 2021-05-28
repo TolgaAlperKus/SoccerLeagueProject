@@ -28,15 +28,17 @@ public class FixtureFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        int teamCount = MainActivity.fixtureAppDatabase.fixtureDao().teamCount();
+        teamCount = teamCount/2;
         List<MatchModel> matchModelList;
         View view = inflater.inflate(R.layout.fragment_fixture,container,false);
         textView = view.findViewById(R.id.fragment_fixture_week_textview);
         String message = getArguments().getString("message");
         int week = getArguments().getInt("week");
-        matchModelList = MainActivity.fixtureAppDatabase.fixtureDao().getWeek(week);
+        matchModelList = MainActivity.fixtureAppDatabase.fixtureDao().getWeek(week,teamCount);
         textView.setText(message);
         fixtureListView = view.findViewById(R.id.fragment_fixture_fixturelist);
-        arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1,matchModelList);
+        arrayAdapter = new ArrayAdapter(getActivity(), R.layout.custom_layout,matchModelList);
         fixtureListView.setAdapter(arrayAdapter);
 
 
