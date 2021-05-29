@@ -3,8 +3,6 @@ package com.example.soccerleagueproject.view;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.room.InvalidationTracker;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +12,9 @@ import android.widget.TextView;
 
 import com.example.soccerleagueproject.R;
 import com.example.soccerleagueproject.model.MatchModel;
-import com.example.soccerleagueproject.model.TeamModel;
 
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 public class FixtureFragment extends Fragment {
 

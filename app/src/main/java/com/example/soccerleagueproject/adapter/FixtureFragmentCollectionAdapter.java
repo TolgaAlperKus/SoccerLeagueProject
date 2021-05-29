@@ -2,26 +2,12 @@ package com.example.soccerleagueproject.adapter;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.soccerleagueproject.model.MatchModel;
 import com.example.soccerleagueproject.view.FixtureFragment;
 import com.example.soccerleagueproject.view.MainActivity;
-
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
-import io.reactivex.Single;
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 public class FixtureFragmentCollectionAdapter extends FragmentStatePagerAdapter {
     int count;
