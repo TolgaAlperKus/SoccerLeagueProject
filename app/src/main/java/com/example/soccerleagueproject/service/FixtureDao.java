@@ -8,15 +8,17 @@ import androidx.room.Query;
 import com.example.soccerleagueproject.model.MatchModel;
 
 import java.util.List;
+import java.util.Observable;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
+import io.reactivex.SingleObserver;
 
 @Dao
 public interface FixtureDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public Completable addMatch(final MatchModel matchModel);
+    public void addMatch(final MatchModel matchModel);
 
     @Query("Select * from matches Where week = :weekNum Limit(:matchNum) ")
     public List<MatchModel> getWeek (int weekNum, int matchNum);

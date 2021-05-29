@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 
 public interface SoccerApi {
     //TolgaAlperKus/SoccerLeagueProject/main/DummyRestAPI/superlig.json TR SuperLig
-    //
-    @GET("TolgaAlperKus/SoccerLeagueProject/main/DummyRestAPI/premierleague.json")
+    //TolgaAlperKus/SoccerLeagueProject/main/DummyRestAPI/premierleague.json
+    @GET("TolgaAlperKus/SoccerLeagueProject/main/DummyRestAPI/superlig.json")
     Call<List<TeamModel>> getData();
 }

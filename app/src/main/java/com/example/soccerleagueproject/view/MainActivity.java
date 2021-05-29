@@ -15,6 +15,7 @@ import com.example.soccerleagueproject.model.MatchModel;
 import com.example.soccerleagueproject.model.TeamModel;
 import com.example.soccerleagueproject.service.FixtureAppDatabase;
 import com.example.soccerleagueproject.service.SoccerApi;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -38,23 +39,32 @@ public class MainActivity extends AppCompatActivity {
     Retrofit retrofit;
     ListView teamNamesListView;
     ArrayAdapter arrayAdapter;
+    FloatingActionButton floatingActionButton;
     public static FixtureAppDatabase fixtureAppDatabase;
-    CompositeDisposable compositeDisposable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        floatingActionButton =findViewById(R.id.activity_main_draw_fixtures_floating_button);
+        teamNamesListView = findViewById(R.id.activity_main_listview);
+        showui(true);
         fixtureAppDatabase = Room.inMemoryDatabaseBuilder(getApplicationContext(),FixtureAppDatabase.class).allowMainThreadQueries().build();
-
         Gson gson = new GsonBuilder().setLenient().create();
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-
         loadData();
-        teamNamesListView = findViewById(R.id.activity_main_listview);
+
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showui(true);
+    }
+
     private void loadData(){
         SoccerApi soccerApi = retrofit.create(SoccerApi.class);
         Call<List<TeamModel>> call = soccerApi.getData();
@@ -80,10 +90,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void drawFixtureOnClick (View view){
+        showui(false);
         int teamSize = teamModels.size();
         int roundCount=(teamSize-1)*2;
         int matchCountPerRound=teamSize/2;
-        compositeDisposable = new CompositeDisposable();
 
         for (int i = 0; i < roundCount; i++) {
             for(int j=0;j<matchCountPerRound;j++){
@@ -93,16 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 match.setHomeTeam(teamModels.get(firstIndex).teamName);
                 match.setAwayTeam(teamModels.get(secondIndex).teamName);
                 match.setWeek(i+1);
-                compositeDisposable.add(MainActivity.fixtureAppDatabase.fixtureDao().addMatch(match).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        throwable.printStackTrace();
-                    }
-                }));
+                MainActivity.fixtureAppDatabase.fixtureDao().addMatch(match);
             }
             ArrayList<TeamModel> newList=new ArrayList<TeamModel>();
             newList.add(teamModels.get(0));
@@ -117,4 +118,19 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this,FixturesActivity.class);
         startActivity(intent);
     }
+
+    public void showui(boolean show){
+        if(show){
+            findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+            teamNamesListView.setVisibility(View.VISIBLE);
+            floatingActionButton.setVisibility(View.VISIBLE);
+        }
+        else{
+            teamNamesListView.setVisibility(View.GONE);
+            floatingActionButton.setVisibility(View.GONE);
+            findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+        }
+    }
 }
+
+
