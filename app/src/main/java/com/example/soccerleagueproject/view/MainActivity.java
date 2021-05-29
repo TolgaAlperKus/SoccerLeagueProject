@@ -3,7 +3,9 @@ package com.example.soccerleagueproject.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -89,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     public void drawFixtureOnClick (View view){
         showui(false);
         int teamSize = teamModels.size();
@@ -113,10 +116,15 @@ public class MainActivity extends AppCompatActivity {
             }
             teamModels=newList;
         }
-        System.out.println("Total Week : "+roundCount);
-        System.out.println("Matches in a week:  "+matchCountPerRound);
         Intent intent = new Intent(MainActivity.this,FixturesActivity.class);
-        startActivity(intent);
+        if(Build.VERSION.SDK_INT>20)
+        {
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this);
+            startActivity(intent,options.toBundle());
+        }
+        else {
+            startActivity(intent);
+        }
     }
 
     public void showui(boolean show){

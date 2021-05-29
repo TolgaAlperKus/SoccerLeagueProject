@@ -8,8 +8,9 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface SoccerApi {
-    //TolgaAlperKus/SoccerLeagueProject/main/DummyRestAPI/superlig.json TR SuperLig
-    //TolgaAlperKus/SoccerLeagueProject/main/DummyRestAPI/premierleague.json
-    @GET("TolgaAlperKus/SoccerLeagueProject/main/DummyRestAPI/superlig.json")
+    //denemek icin ornek takim listeleri
+    //21 takim = TolgaAlperKus/SoccerLeagueProject/main/DummyRestAPI/superlig.json
+    //20 takim = TolgaAlperKus/SoccerLeagueProject/main/DummyRestAPI/premierleague.json
+    @GET("TolgaAlperKus/SoccerLeagueProject/main/DummyRestAPI/premierleague.json")
     Call<List<TeamModel>> getData();
 }
